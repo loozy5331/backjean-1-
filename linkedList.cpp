@@ -1,19 +1,19 @@
 #include <iostream>
-#include <cstdio>
+#include <cstdlib>
 using namespace std;
 
-class InvalidIndexException{};
+class InvalidIndexException {};
 
 template<typename T>
 class ListNode {
 public:
 	T value;
-	ListNode<T> *next; // 마지막 노드면 nullptr
+	ListNode<T> *next;
 
-	// 생성자
 	ListNode<T>() : next(nullptr) {}
 	ListNode<T>(T value1, ListNode<T> *next1)
-		: value(value1), next(next1) {}
+		: value(value1), next(next1)
+	{ }
 };
 
 template<typename T>
@@ -22,7 +22,9 @@ public:
 	int size;
 	ListNode<T> *head;
 
-	LinkedList<T>() : size(0), head(nullptr) {}
+	LinkedList<T>()
+		: size(0), head(nullptr)
+	{ }
 
 	~LinkedList<T>() {
 		ListNode<T> *t1 = head, *t2;
@@ -35,7 +37,7 @@ public:
 
 	void insert(int k, T value) {
 		try {
-			if (k < 0 || k>size) throw InvalidIndexException();
+			if (k < 0 || k > size) throw InvalidIndexException();
 			if (k == 0) {
 				head = new ListNode<T>(value, head);
 			}
@@ -55,7 +57,7 @@ public:
 	void erase(int k) {
 		try {
 			if (k < 0 || k >= size) throw InvalidIndexException();
-			if (k == 0) {
+			if (k == 0){
 				ListNode<T> *temp = head->next;
 				delete head;
 				head = temp;
@@ -78,7 +80,7 @@ public:
 	int search(T value) {
 		ListNode<T> *temp = head;
 		for (int i = 0; i < size; ++i) {
-			if (temp->value == value) return i;
+			if (temp->valeu == value) return i;
 			temp = temp->next;
 		}
 		return -1;
@@ -86,15 +88,15 @@ public:
 };
 
 template<typename T>
-ostream& operator <<(ostream &out, const LinkedList<T> &LL) {
+ostream& operator<<(ostream &out, const LinkedList<T> &LL) {
 	ListNode<T> *temp = LL.head;
-	out << '[';
+	out << "[";
 	for (int i = 0; i < LL.size; ++i) {
 		out << temp->value;
 		temp = temp->next;
 		if (i < LL.size - 1) out << ", ";
 	}
-	out << ']';
+	out << "]";
 	return out;
 }
 

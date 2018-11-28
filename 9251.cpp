@@ -1,28 +1,28 @@
 #include <iostream>
 #include <cstring>
 #include <string>
+#include <algorithm>
 using namespace std;
 
-string first, second;
-int ret = 0;
-//int cache[1001][1001];
-int lcs(string s1, string s2) {
-	if (s1.length() == 0 || s2.length() == 0) return 0;
-	int ret = 0;
-	for (int i = 0; i < s1.length(); ++i) {
-		for (int j = 0; j < s2.length(); ++j) {
-			if (s1[i] == s2[j]) {
-				ret += lcs(s1.substr(i+1), s2.substr(j+1)) + 1;
-			}
-		}
+string A, B;
+int cache[1001][1001];
+int LCS(int as, int bs) {
+	if (as == A.size() || bs == B.size()) return 0;
+	int& ret = cache[as][bs];
+	if (ret != -1) return ret;
+	int count = 0;
+	if (A[as] == B[bs]) { 
+		count++; 
+		count += LCS(as + 1, bs + 1);
 	}
-	return ret;
+	count = max(count, LCS(as + 1, bs));
+	count = max(count, LCS(as, bs+ 1));
+	return ret = count;
 }
 
-int main()
-{
-	//memset(cache, -1, sizeof(cache));
-	cin >> first >> second;
-	cout << lcs(first, second);
-	return 0;
+
+int main() {
+	cin >> A >> B;
+	memset(cache, -1, sizeof(cache));
+	cout << LCS(0, 0);
 }

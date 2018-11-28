@@ -1,16 +1,16 @@
 #include <iostream>
 using namespace std;
 
-int N, M;
+long long N, M;
 int cost[10001];
-long long SumCost = 0;
-int maxCost = 0;
+long long SumCost = 0; // 요구하는 총 예산
+int maxCost = 0; // 예산 중 최고값
 
 int DivideCost() {
 	if (M >= SumCost) return maxCost;
-	int lo = 0, hi = 100000001;
+	long long lo = 0, hi = 1000000001;
 	while (lo + 1 < hi) {
-		int mid = (lo + hi) / 2;
+		long long mid = (lo + hi) / 2;
 		long long sumNum = 0;
 		for (int i = 0; i < N; ++i) {
 			if (cost[i] < mid) sumNum += cost[i];
